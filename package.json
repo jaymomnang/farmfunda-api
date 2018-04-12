@@ -1,0 +1,36 @@
+{
+    "name": "farmfunda-api",
+    "version": "1.0.0",
+    "description": "RESTful API for FarmFunda",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/jaymomnang/farmfunda-api.git"
+    },
+    "keywords": [
+        "Apene",
+        "Accounting"
+    ],
+    "author": "Julius Momnang",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/jaymomnang/farmfunda-api/issues"
+    },
+    "homepage": "https://github.com/jaymomnang/farmfunda-api#readme",
+    "devDependencies": {
+        "nodemon": "^1.12.1",
+        "body-parser": "^1.17.2"
+    },
+    "dependencies": {
+        "async": "^2.5.0",
+        "express": "^4.15.3",
+        "firebase": "^4.11.0",
+        "g": "^2.0.1",
+        "mongoose": "^4.13.5",
+        "npm": "^5.7.1"
+    }
+}
