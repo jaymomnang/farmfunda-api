@@ -33,11 +33,11 @@ exports.add_new_user = function(req, res) {
     var pwd = getHash(new_user.pwd);
     new_user.pwd = pwd;
 
-    new_user.save(function(err, user) {
-        if (err)
-            res.send(err);
-        res.json(user);
-    });
+    var obj = helpers.saveData(new_user);
+    obj.then(function(result){
+        return result;
+    });   
+   
 };
 
 exports.authenticateViaEmail = function(req, res) {

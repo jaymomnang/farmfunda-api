@@ -15,6 +15,8 @@ const testdb = 'mongodb://localhost:27017/farmfunda';
 const livedb = 'mongodb://kilimo:eac-farming@cluster0-shard-00-00-lhu1r.mongodb.net:27017,cluster0-shard-00-01-lhu1r.mongodb.net:27017,cluster0-shard-00-02-lhu1r.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin';
 mongoose.connect(livedb);
 
+global.helpers = require('./helpers/helpers');
+
 //internally generated numbers for attendance records.
 global.getNewID = function (currentID, prefix) {
     var pos = Number(currentID.substring(3, 10)) + 1;
