@@ -1,9 +1,9 @@
 'use strict';
 var mongoose = require('mongoose'),
-port = mongoose.model('ports');
+farms = mongoose.model('farms');
 
 exports.list_all_ports = function(req, res) {
-    port.find({}, function(err, ports) {
+    farms.find({}, function(err, ports) {
         if (err)
             res.send(err);
         res.json(ports);
@@ -11,7 +11,7 @@ exports.list_all_ports = function(req, res) {
 };
 
 exports.create_port = function(req, res) {
-    var new_port = new port(req.body);
+    var new_port = new farms(req.body);
     
     new_port.save(function(err, new_port) {
         if (err) {
@@ -22,7 +22,7 @@ exports.create_port = function(req, res) {
 };
 
 exports.get_port = function(req, res) {
-    port.findById(req.params.port_id, function(err, port) {
+    farms.findById(req.params.port_id, function(err, port) {
         if (err)
             res.send(err);
         res.json(port);
@@ -30,7 +30,7 @@ exports.get_port = function(req, res) {
 };
 
 exports.update_port = function(req, res) {
-    port.findOneAndUpdate({ port_id: req.params.port_id }, req.body, { new: true }, function(err, port) {
+    farms.findOneAndUpdate({ port_id: req.params.port_id }, req.body, { new: true }, function(err, port) {
         if (err)
             res.send(err);
         res.json(port);
@@ -38,13 +38,13 @@ exports.update_port = function(req, res) {
 };
 
 exports.delete_port = function(req, res) {
-    port.remove({
+    farms.remove({
         port_id: req.params.port_id
     }, function(err, rpt) {
         if (err)
             res.send(err);
         var message = 'port successfully deleted';
-        port.find({}, function(err, ports) {
+        farms.find({}, function(err, ports) {
             if (err)
                 res.send(err);
             res.json({ ports, message });

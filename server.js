@@ -2,11 +2,7 @@ var express = require('express'),
     app = express(),
     port = process.env.PORT || 7000,
     mongoose = require('mongoose'),
-    Vessels = require('./models/VesselsModel'),
-    schedules = require('./models/schedulesModel'),
-    seatClass = require('./models/seatClassModel'),
-    ports = require('./models/portsModel'),
-    pricing = require('./models/pricingModel'),
+    farms = require('./models/farmsModel'),
     users = require('./models/usersModel'),
     bodyParser = require('body-parser');
 
@@ -16,21 +12,7 @@ const livedb = 'mongodb://kilimo:eac-farming@cluster0-shard-00-00-lhu1r.mongodb.
 mongoose.connect(livedb);
 
 global.helpers = require('./helpers/helpers');
-
-//internally generated numbers for attendance records.
-global.getNewID = function (currentID, prefix) {
-    var pos = Number(currentID.substring(3, 10)) + 1;
-    var l = pos.toString().length;
-    var nxt = prefix;
-
-    for (var i = 0; i + l < 7; i++) {
-        nxt = nxt + "0";
-    }
-
-    return nxt + pos.toString();
-};
-
-console.log('loading farmfunda server.........');
+console.log('loading kilimo server.........');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -39,4 +21,4 @@ var routes = require('./routes/aRoutes');
 routes(app);
 
 app.listen(port);
-console.log('farmfunda server started on: ' + port);
+console.log('Kilimo server started on: ' + port);
