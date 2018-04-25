@@ -60,6 +60,10 @@ var farmsSchema = new Schema({
             enum: ['open', 'closed']
         }],
         default: ['open']
+    },
+    isActive: {
+        type: Boolean,
+        default: false
     }
 });
 
