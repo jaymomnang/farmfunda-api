@@ -2,52 +2,52 @@
 var mongoose = require('mongoose'),
 farms = mongoose.model('farms');
 
-exports.list_all_ports = function(req, res) {
-    farms.find({}, function(err, ports) {
+exports.list_all_farms = function(req, res) {
+    farms.find({}, function(err, farms) {
         if (err)
             res.send(err);
-        res.json(ports);
+        res.json(farms);
     });
 };
 
-exports.create_port = function(req, res) {
-    var new_port = new farms(req.body);
+exports.add_new_farm = function(req, res) {
+    var new_farm = new farms(req.body);
     
-    new_port.save(function(err, new_port) {
+    new_port.save(function(err, new_farm) {
         if (err) {
             res.send(err);
-            res.json(new_port);
+            res.json(new_farm);
         }
     });
 };
 
-exports.get_port = function(req, res) {
-    farms.findById(req.params.port_id, function(err, port) {
+exports.get_farm = function(req, res) {
+    farms.findById(req.params.farm_id, function(err, farm) {
         if (err)
             res.send(err);
-        res.json(port);
+        res.json(farm);
     });
 };
 
-exports.update_port = function(req, res) {
-    farms.findOneAndUpdate({ port_id: req.params.port_id }, req.body, { new: true }, function(err, port) {
+exports.update_farm = function(req, res) {
+    farms.findOneAndUpdate({ farm_id: req.params.farm_id }, req.body, { new: true }, function(err, port) {
         if (err)
             res.send(err);
-        res.json(port);
+        res.json(farm);
     });
 };
 
-exports.delete_port = function(req, res) {
+exports.delete_farm = function(req, res) {
     farms.remove({
-        port_id: req.params.port_id
+        farm_id: req.params.farm_id
     }, function(err, rpt) {
         if (err)
             res.send(err);
-        var message = 'port successfully deleted';
-        farms.find({}, function(err, ports) {
+        var message = 'farm successfully deleted';
+        farms.find({}, function(err, farms) {
             if (err)
                 res.send(err);
-            res.json({ ports, message });
+            res.json({ farms, message });
         });
     });
 };

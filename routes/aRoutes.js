@@ -6,13 +6,13 @@ module.exports = function (app) {
     
     // Farms Routes
     app.route('/farms')
-        .get(farms.list_all_ports)
-        .post(farms.create_port);
+        .get(farms.list_all_farms)
+        .post(farms.add_new_farm);
 
     app.route('/farms/:farm_id')
-        .get(farms.get_port)
-        .put(farms.update_port)
-        .delete(farms.delete_port);
+        .get(farms.get_farm)
+        .put(farms.update_farm)
+        .delete(farms.delete_farm);
     
     // users and login Routes
     app.route('/login/:email/:pwd')
