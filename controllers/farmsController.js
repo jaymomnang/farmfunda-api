@@ -13,11 +13,9 @@ exports.list_all_farms = function(req, res) {
 exports.add_new_farm = function(req, res) {
     var new_farm = new farms(req.body);
     
-    new_port.save(function(err, new_farm) {
-        if (err) {
-            res.send(err);
-            res.json(new_farm);
-        }
+    new_farm.save(function(err, new_farm) {
+        if (err) res.send(err);
+        res.json(new_farm);        
     });
 };
 

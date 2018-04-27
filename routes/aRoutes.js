@@ -1,6 +1,7 @@
 'use strict';
 module.exports = function (app) {
     var farms = require('../controllers/farmsController');
+    var regions = require('../controllers/regionsController');
     var users = require('../controllers/userController');
 
     
@@ -13,6 +14,16 @@ module.exports = function (app) {
         .get(farms.get_farm)
         .put(farms.update_farm)
         .delete(farms.delete_farm);
+
+    // Regions Routes
+    app.route('/regions')
+        .get(regions.list_all_regions)
+        .post(regions.add_new_region);
+
+    app.route('/regions/:region_id')
+        .get(regions.get_region)
+        .put(regions.update_region)
+        .delete(regions.delete_region);
     
     // users and login Routes
     app.route('/login/:email/:pwd')
