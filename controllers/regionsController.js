@@ -28,7 +28,7 @@ exports.get_region = function(req, res) {
 };
 
 exports.update_region = function(req, res) {
-    regions.findOneAndUpdate({ region_id: req.params.region_id }, req.body, { new: true }, function(err, port) {
+    regions.findOneAndUpdate({ region: req.params.region_id }, req.body, { new: true }, function(err, port) {
         if (err)
             res.send(err);
         res.json(region);
@@ -37,7 +37,7 @@ exports.update_region = function(req, res) {
 
 exports.delete_region = function(req, res) {
     regions.remove({
-        region_id: req.params.region_id
+        region: req.params.region_id
     }, function(err, rpt) {
         if (err)
             res.send(err);
