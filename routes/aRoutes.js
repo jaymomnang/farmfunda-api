@@ -1,14 +1,22 @@
 'use strict';
 module.exports = function (app) {
     var farms = require('../controllers/farmsController');
+    var farmfunding = require('../controllers/farmfundingController');
     var regions = require('../controllers/regionsController');
     var users = require('../controllers/userController');
 
-    
+
     // Farms Routes
+    app.route('/topfarms')
+        .get(farms.getTrending);
+
     app.route('/farms')
         .get(farms.list_all_farms)
         .post(farms.add_new_farm);
+
+    app.route('/farmfunding')
+        .get(farmfunding.list_all_farmfunding)
+        .post(farmfunding.add_new_farmfunding);
 
     app.route('/farms/:farm_id')
         .get(farms.get_farm)
@@ -24,7 +32,7 @@ module.exports = function (app) {
         .get(regions.get_region)
         .put(regions.update_region)
         .delete(regions.delete_region);
-    
+
     // users and login Routes
     app.route('/login/:email/:pwd')
         .get(users.authenticateViaEmail);

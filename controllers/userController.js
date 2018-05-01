@@ -13,7 +13,7 @@ var getHash = function (pwd) {
 
 
 exports.get_users = function (req, res) {
-    User.find({}, 'email phoneno firstname lastname role isActive', function (err, user) {
+    User.find({}, 'email phoneno firstname lastname role isActive companyname', function (err, user) {
         if (err)
             res.send(err);
         res.json(user);
@@ -21,7 +21,9 @@ exports.get_users = function (req, res) {
 };
 
 exports.get_user = function (req, res) {
-    User.find({ email: req.params.email }, 'email phoneno firstname lastname role isActive', function (err, user) {
+    User.find({
+        email: req.params.email
+    }, 'email phoneno firstname lastname role isActive companyname', function (err, user) {
         if (err)
             res.send(err);
         res.json(user);
@@ -42,42 +44,70 @@ exports.add_new_user = function (req, res) {
 
 exports.authenticateViaEmail = function (req, res) {
     var password = getHash(req.params.pwd);
-    User.find({ email: req.params.email, pwd: password }, function (err, user) {
-        if (err)
-            res.send(err);
-        res.json(user);
+    User.findOne({email: req.params.email, pwd: password}, 'email phoneno firstname lastname role isActive companyname', function (err, user) {
+        if (err) res.send(err);
+        user.lastLoginDate = Date.now();
+
+        User.findOne({email: user.email}, 'email phoneno firstname lastname role isActive companyname', function (err, user) {
+            if (err) res.send(err);
+            res.json(user);
+        });
     });
 };
 
 exports.authenticateViaPhone = function (req, res) {
     var password = getHash(req.params.pwd);
-    User.find({ phoneno: req.params.phoneno, pwd: password }, function (err, user) {
-        if (err)
-            res.send(err);
+    User.findOne({phoneno: req.params.phoneno, pwd: password}, 'email phoneno firstname lastname role isActive companyname', function (err, user) {
+        if (err) res.send(err);
+        user.lastLoginDate = Date.now();
+
+        User.findOne({email: user.email}, 'email phoneno firstname lastname role isActive companyname', function (err, user) {
+            if (err) res.send(err);
+            res.json(user);
+        });
+    });
+};
+
+exports.update_user_prof = function (req, res) {    
+    User.findOneAndUpdate({email: req.params.email}, req.body, {new: true}, function (err, user) {
+        if (err) res.send(err);
         res.json(user);
     });
 };
 
-exports.update_user_prof = function (req, res) {
-    User.findOneAndUpdate({ email: req.params.email }, req.body, { new: true }, function (err, user) {
-        if (err)
-            res.send(err);
+exports.ChangePassword = function (req, res) {
+    var password = getHash(req.body.pwd);
+    req.body.pwd = password;
+    User.findOneAndUpdate({email: req.params.email}, req.body, {new: true}, function (err, user) {
+        if (err) res.send(err);
         res.json(user);
     });
 };
 
 exports.delete_user = function (req, res) {
-    User.findOneAndUpdate({ email: req.params.email, status: 'suspended', isActive: false }, req.body, { new: true }, function (err, user) {
+    User.findOneAndUpdate({
+        email: req.params.email,
+        status: 'suspended',
+        isActive: false
+    }, req.body, {
+        new: true
+    }, function (err, user) {
         if (err)
             res.send(err);
-        res.json({ message: 'User deactivated successfully' });
+        res.json({
+            message: 'User deactivated successfully'
+        });
     });
 };
 
 exports.removeUser = function (req, res) {
-    User.remove({ email: req.params.email }, function (err, user) {
+    User.remove({
+        email: req.params.email
+    }, function (err, user) {
         if (err)
             res.send(err);
-        res.json({ message: 'User successfully removed' });
+        res.json({
+            message: 'User successfully removed'
+        });
     });
 };

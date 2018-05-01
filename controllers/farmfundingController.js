@@ -1,27 +1,27 @@
 'use strict';
 var mongoose = require('mongoose'),
-    farms = mongoose.model('farms');
+    farmfunding = mongoose.model('farmfunding');
 
-exports.list_all_farms = function (req, res) {
-    farms.find({}, function (err, farms) {
+exports.list_all_farmfunding = function (req, res) {
+    farmfunding.find({}, function (err, farmfunding) {
         if (err)
             res.send(err);
-        res.json(farms);
+        res.json(farmfunding);
     });
 };
 
 exports.getTrending = function(req, res){
-    farms.find({}).sort({fundRaised: -1}).limit(5).exec(function (err, farms) {
+    farmfunding.find({}).sort({fundRaised: -1}).limit(5).exec(function (err, farmfunding) {
         if (err)
             res.send(err);
-        res.json(farms);
+        res.json(farmfunding);
     });
 }
 
 exports.add_new_farm = function (req, res) {
-    var new_farm = new farms(req.body);
+    var new_farm = new farmfunding(req.body);
 
-    var lastFarm = helpers.getLastID(farms, "farm_id");
+    var lastFarm = helpers.getLastID(farmfunding, "farm_id");
     lastFarm.then(function (result) {
 
         var currentID = "FRM0000000";
@@ -32,9 +32,9 @@ exports.add_new_farm = function (req, res) {
 
         new_farm.save(function (err, new_farm) {
             if (err) res.send(err);
-            farms.find({}, function (err, farms) {
+            farmfunding.find({}, function (err, farmfunding) {
                 if (err) res.send(err);
-                res.json(farms);
+                res.json(farmfunding);
             });
         });
     }, function(err) {
@@ -44,7 +44,7 @@ exports.add_new_farm = function (req, res) {
 };
 
 exports.get_farm = function (req, res) {
-    farms.findById(req.params.farm_id, function (err, farm) {
+    farmfunding.findById(req.params.farm_id, function (err, farm) {
         if (err)
             res.send(err);
         res.json(farm);
@@ -52,7 +52,7 @@ exports.get_farm = function (req, res) {
 };
 
 exports.update_farm = function (req, res) {
-    farms.findOneAndUpdate({
+    farmfunding.findOneAndUpdate({
         farm_id: req.params.farm_id
     }, req.body, {
         new: true
@@ -64,17 +64,17 @@ exports.update_farm = function (req, res) {
 };
 
 exports.delete_farm = function (req, res) {
-    farms.remove({
+    farmfunding.remove({
         farm_id: req.params.farm_id
     }, function (err, rpt) {
         if (err)
             res.send(err);
         var message = 'farm successfully deleted';
-        farms.find({}, function (err, farms) {
+        farmfunding.find({}, function (err, farmfunding) {
             if (err)
                 res.send(err);
             res.json({
-                farms,
+                farmfunding,
                 message
             });
         });

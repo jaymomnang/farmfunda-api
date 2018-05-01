@@ -38,18 +38,7 @@ var farmsSchema = new Schema({
     fundRaised: {
         type: Number,
         Default: 0.00
-    },
-    funding: {
-        amount: {
-            type: Number
-        },
-        funder: {
-            type: String
-        },
-        funder_email: {
-            type: String
-        }
-    },
+    },    
     Created_date: {
         type: Date,
         default: Date.now

@@ -3,6 +3,7 @@ var express = require('express'),
     port = process.env.PORT || 7000,
     mongoose = require('mongoose'),
     farms = require('./models/farmsModel'),
+    farmfunding = require('./models/farmfundingModel'),
     regions = require('./models/regionsModel'),
     users = require('./models/usersModel'),
     bodyParser = require('body-parser');
