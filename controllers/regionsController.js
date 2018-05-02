@@ -28,7 +28,7 @@ exports.get_region = function(req, res) {
 };
 
 exports.update_region = function(req, res) {
-    regions.findOneAndUpdate({ region: req.params.region_id }, req.body, { new: true }, function(err, port) {
+    regions.findOneAndUpdate({ region: req.params.region_id }, req.body, { new: true }, function(err, region) {
         if (err)
             res.send(err);
         res.json(region);

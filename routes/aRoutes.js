@@ -16,7 +16,7 @@ module.exports = function (app) {
 
     app.route('/farmfunding')
         .get(farmfunding.list_all_farmfunding)
-        .post(farmfunding.add_new_farmfunding);
+        .post(farmfunding.add_funds);
 
     app.route('/farms/:farm_id')
         .get(farms.get_farm)

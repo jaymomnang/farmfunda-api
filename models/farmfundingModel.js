@@ -7,6 +7,10 @@ var farmfundingSchema = new Schema({
         type: String,
         Required: 'Kindly enter the farm_id'
     },
+    trans_id: {
+        type: String,
+        Required: 'Kindly enter the trans_id'
+    },
     farmer: {
         type: String,
         Required: 'Kindly enter the farmer fullname'

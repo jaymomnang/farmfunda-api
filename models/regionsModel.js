@@ -12,12 +12,12 @@ var regionSchema = new Schema({
         Required: 'Kindly enter the country name'
     },
     districts: {
-        name: {
+        name: [{
             type: String
-        },
-        population: {
-            type: Number
-        }
+        }],
+        population: [{
+            type: String
+        }]
     },
     Created_date: {
         type: Date,
