@@ -22,8 +22,8 @@
     },
     "homepage": "https://github.com/jaymomnang/farmfunda-api#readme",
     "devDependencies": {
-        "nodemon": "^1.12.1",
-        "body-parser": "^1.17.2"
+        "body-parser": "^1.17.2",
+        "nodemon": "^1.17.5"
     },
     "dependencies": {
         "async": "^2.5.0",
