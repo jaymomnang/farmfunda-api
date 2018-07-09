@@ -11,7 +11,7 @@ exports.list_all_farmfunding = function (req, res) {
 };
 
 exports.getTrending = function(req, res){
-    farmfunding.find({}).sort({fundRaised: -1}).limit(5).exec(function (err, farmfunding) {
+    farmfunding.find({}).sort({farm_id: -1}).limit(5).exec(function (err, farmfunding) {
         if (err)
             res.send(err);
         res.json(farmfunding);
